@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoMind | Speech Emotion Recognition</title>
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}?v=2">
+    <script src="{{ url_for('static', filename='js/script.js') }}"
+            defer></script>
+</head>
+
+<body>
+    <header class="navbar">
+        <a href="#home" class="logo">
+            <span class="logo-icon">♫</span> EchoMind
+        </a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#analyzer">Analyzer</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p class="eyebrow">AI-POWERED AUDIO ANALYTICS</p>
+                <h1>Hear the <span>emotion</span><br>behind every voice.</h1>
+                <p class="hero-description">
+                    Upload a speech recording and let machine learning
+                    predict the emotion expressed in the audio.
+                </p>
+                <a href="#analyzer" class="primary-link">
+                    Analyze your audio <span>→</span>
+                </a>
+
+                <div class="hero-tags">
+                    <span>♪ Audio analysis</span>
+                    <span>✧ Machine learning</span>
+                    <span>◉ Emotion prediction</span>
+                </div>
+            </div>
+
+            <div class="sound-art" aria-hidden="true">
+                <div class="sound-circle circle-one"></div>
+                <div class="sound-circle circle-two"></div>
+                <div class="sound-circle circle-three"></div>
+                <div class="wave-bars">
+                    <i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i>
+                    <i></i><i></i><i></i><i></i><i></i>
+                    <i></i>
+                </div>
+                <p>VOICE · FEELING · INSIGHT</p>
+            </div>
+        </section>
+
+        <section class="features">
+            <article class="feature-card">
+                <span class="feature-icon">♫</span>
+                <h3>Audio Upload</h3>
+                <p>Select a WAV speech recording from your computer.</p>
+            </article>
+
+            <article class="feature-card">
+                <span class="feature-icon">⌁</span>
+                <h3>AI Prediction</h3>
+                <p>Analyze acoustic features using your trained model.</p>
+            </article>
+
+            <article class="feature-card">
+                <span class="feature-icon">▥</span>
+                <h3>Emotion Insights</h3>
+                <p>View the predicted emotion and available class scores.</p>
+            </article>
+        </section>
+
+        <section class="analyzer-section" id="analyzer">
+            <div class="section-heading">
+                <p class="eyebrow">YOUR AUDIO WORKSPACE</p>
+                <h2>Speech Emotion Analyzer</h2>
+                <p>Choose a WAV file to begin your analysis.</p>
+            </div>
+
+            <div class="analyzer-card">
+                <div id="uploadArea" class="upload-area">
+                    <div class="upload-icon">↑</div>
+                    <h3>Drop your audio here</h3>
+                    <p>or select a WAV file from your computer</p>
+
+                    <!-- Keep this input present; JavaScript opens it. -->
+                   <button
+                   type="button"
+                   id="browseButton"
+                   class="upload-button">
+                   Choose audio file
+                </button>
+                <input
+                type="file"
+                id="audioFile"
+                accept=".wav,audio/wav"
+                
+                class="file-input"
+                tabindex="-1"
+                aria-label="Select a WAV audio file"
+                >
+
+
+                    <p class="file-note">WAV format only</p>
+                </div>
+
+                <div id="fileDetails" class="file-details hidden">
+                    <div class="file-symbol">♫</div>
+                    <div class="file-info">
+                        <strong id="fileName">audio.wav</strong>
+                        <span id="fileSize">0 MB</span>
+                    </div>
+                    <button type="button" id="removeFile"
+                            class="remove-button" aria-label="Remove audio">
+                        ✕
+                    </button>
+                </div>
+
+                <audio id="audioPlayer" controls class="audio-player hidden">
+                    Your browser does not support audio playback.
+                </audio>
+
+                <button
+                    type="button"
+                    id="analyzeButton"
+                    class="analyze-button"
+                    disabled>
+                    <span id="buttonText">Analyze emotion</span>
+                    <span aria-hidden="true"> →</span>
+                </button>
+
+                <p id="statusMessage" class="status-message"
+                   role="status" aria-live="polite"></p>
+
+                <section id="results" class="results hidden">
+                    <div class="result-heading">
+                        <p class="eyebrow">ANALYSIS COMPLETE</p>
+                        <h2>Emotion results</h2>
+                    </div>
+
+                    <div class="prediction-card">
+                        <p>Predicted emotion</p>
+                        <h3 id="predictedEmotion">—</h3>
+                        <p class="confidence-label">Model confidence score</p>
+                        <strong id="confidenceScore">—</strong>
+                    </div>
+
+                    <div class="result-panel">
+                        <h3>Emotion class scores</h3>
+                        <p class="panel-description">
+                            Scores returned by the trained model.
+                        </p>
+                        <div id="probabilityList"></div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span>Duration</span>
+                            <strong id="durationValue">—</strong>
+                        </div>
+                        <div class="stat-card">
+                            <span>Sample rate</span>
+                            <strong id="sampleRateValue">—</strong>
+                        </div>
+                        <div class="stat-card">
+                            <span>Audio samples</span>
+                            <strong id="sampleCountValue">—</strong>
+                        </div>
+                    </div>
+
+                    <p class="disclaimer">
+                        This is a machine-learning estimate from acoustic
+                        patterns, not a definitive assessment of a person's
+                        actual feelings.
+                    </p>
+                </section>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <p class="eyebrow">ABOUT THE PROJECT</p>
+            <h2>Understanding emotions through sound.</h2>
+            <p>
+                EchoMind combines audio feature extraction and a trained
+                machine-learning classifier to estimate speech emotion.
+                Results depend on the quality of the recording and the
+                model's training data.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <a href="#home" class="logo">♫ EchoMind</a>
+        <p>Speech Emotion Recognition &amp; Audio Analytics</p>
+    </footer>
+</body>
+</html>
